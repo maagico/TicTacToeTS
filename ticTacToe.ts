@@ -1,1 +1,1 @@
-console.log("TicTacToe!");
+console.log("TicTacToe");
