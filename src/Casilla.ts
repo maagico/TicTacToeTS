@@ -1,5 +1,5 @@
 class Casilla extends Sprite{
-    
+       
     private ancho: number = 100;
     private alto: number = 100;
 
@@ -11,7 +11,7 @@ class Casilla extends Sprite{
     mouseUp(event: MouseEvent): void{
     }
 
-    public inicilizarCasilla() {
+    public inicializarCasilla() {
         
    }
 }

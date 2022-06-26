@@ -6,6 +6,6 @@ class Casilla extends Sprite {
     }
     mouseUp(event) {
     }
-    inicilizarCasilla() {
+    inicializarCasilla() {
     }
 }

@@ -32,7 +32,7 @@ class Tablero extends Sprite{
           for(let i = 0; i < this.casillas.length; i++){
 
                let casilla = this.casillas[i];
-               casilla.inicilizarCasilla(); 
+               casilla.inicializarCasilla(); 
           } 
       }
 }    
