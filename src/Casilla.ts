@@ -58,6 +58,8 @@ class Casilla extends Sprite{
         this.esCirculo = false;
         this.esCruz = false;
         this.casillaSeleccionada = false;
+        
+        this.pintar(this.contexto);  
     }
 
     public pintar(contexto: CanvasRenderingContext2D) : void {

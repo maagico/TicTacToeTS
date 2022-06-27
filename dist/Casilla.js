@@ -33,6 +33,7 @@ class Casilla extends Sprite {
         this.esCirculo = false;
         this.esCruz = false;
         this.casillaSeleccionada = false;
+        this.pintar(this.contexto);
     }
     pintar(contexto) {
         contexto.lineWidth = 1;
