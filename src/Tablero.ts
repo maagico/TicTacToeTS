@@ -39,7 +39,6 @@ class Tablero extends Sprite{
 
                let casilla = this.casillas[i];
                casilla.inicializarCasilla();
-               casilla.resetear();
           } 
 
      }
@@ -52,7 +51,7 @@ class Tablero extends Sprite{
           if(!this.estaCasillaDesactivada){
 
                casilla.pintarCirculo();
-               
+               this.estaCasillaDesactivada = true;
           }
       }
   

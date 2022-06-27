@@ -39,27 +39,26 @@ class Reglas{
             if(this.turno == TurnoEnum.CIRCULO){
 
                 let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
+                
                 if(!estaSeleccionada){
 
-                this.tablero.pintarCirculo(indiceArray);
-                
-                this.cambiarTurno();
+                    this.tablero.pintarCirculo(indiceArray);
+                    this.cambiarTurno();
 
                 }
 
             }else if(this.turno == TurnoEnum.CRUZ){
 
                 let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
+                
                 if(!estaSeleccionada){
 
-                this.tablero.pintarCruz(indiceArray);
-                
-                this.cambiarTurno();
-
+                    this.tablero.pintarCruz(indiceArray);
+                    this.cambiarTurno();
                 }
             }
 
-            console.log("Indice "+indiceArray+", "+ x + ", " + y);
+            //console.log("Indice "+indiceArray+", "+ x + ", " + y);
         }
     }
 

@@ -14,6 +14,7 @@ class Casilla extends Sprite {
         this.casillaDesactivada = false;
         this.esCirculo = false;
         this.esCruz = false;
+        this.borrarCasilla = true;
         this.pintar(this.contexto);
     }
     pintarCirculo() {
@@ -29,28 +30,24 @@ class Casilla extends Sprite {
     estaDesactivada() {
         return this.casillaDesactivada;
     }
-    resetear() {
-        this.esCirculo = false;
-        this.esCruz = false;
-        this.casillaDesactivada = false;
-        this.pintar(this.contexto);
-    }
     pintar(contexto) {
         contexto.lineWidth = 1;
         contexto.strokeStyle = "gray";
         contexto.rect(this.x, this.y, this.ancho, this.alto);
         contexto.stroke();
-        if (this.casillaDesactivada) {
+        if (this.casillaDesactivada && !this.borrarCasilla) {
             if (this.esCirculo) {
                 let circuloNegro = document.getElementById("circulo-negro");
                 contexto.drawImage(circuloNegro, this.x, this.y, 100, 50);
-                this.casillaDesactivada = true;
             }
             else if (this.esCruz) {
                 let cruzNegra = document.getElementById("cruz-negra");
                 contexto.drawImage(cruzNegra, this.x, this.y, 100, 50);
-                this.casillaDesactivada = true;
             }
+        }
+        else {
+            contexto.clearRect(this.x, this.y, 100, 50);
+            this.borrarCasilla = false;
         }
     }
 }

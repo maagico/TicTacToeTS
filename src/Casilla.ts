@@ -8,6 +8,7 @@ class Casilla extends Sprite{
     private alto: number;
 
     private casillaDesactivada: boolean = false;
+    private borrarCasilla: boolean;
 
     private esCirculo: boolean = false;
     private esCruz: boolean = false;
@@ -30,6 +31,7 @@ class Casilla extends Sprite{
         this.casillaDesactivada = false;
         this.esCirculo = false;
         this.esCruz = false;
+        this.borrarCasilla = true;
 
         this.pintar(this.contexto);
     }
@@ -53,15 +55,6 @@ class Casilla extends Sprite{
         return this.casillaDesactivada;
     }
 
-    public resetear(): void{
-
-        this.esCirculo = false;
-        this.esCruz = false;
-        this.casillaDesactivada = false;
-        
-        this.pintar(this.contexto);  
-    }
-
     public pintar(contexto: CanvasRenderingContext2D) : void {
          
         contexto.lineWidth = 1;
@@ -69,22 +62,23 @@ class Casilla extends Sprite{
         contexto.rect(this.x, this.y, this.ancho, this.alto);
         contexto.stroke();
 
-        if(this.casillaDesactivada){
+        if(this.casillaDesactivada && !this.borrarCasilla){
 
             if(this.esCirculo){
 
                 let circuloNegro : any  = document.getElementById("circulo-negro");
                 contexto.drawImage(circuloNegro,this.x, this.y, 100, 50);
 
-                this.casillaDesactivada = true;
-
             }else if(this.esCruz){
                 
                 let cruzNegra : any  = document.getElementById("cruz-negra");
                 contexto.drawImage(cruzNegra,this.x, this.y, 100, 50);
 
-                this.casillaDesactivada = true;
             }
+        }else{
+
+            contexto.clearRect(this.x, this.y, 100, 50);
+            this.borrarCasilla = false;
         }
     }
 }

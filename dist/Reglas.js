@@ -22,7 +22,7 @@ class Reglas {
                         this.cambiarTurno();
                     }
                 }
-                console.log("Indice " + indiceArray + ", " + x + ", " + y);
+                //console.log("Indice "+indiceArray+", "+ x + ", " + y);
             }
         };
         let canvas = document.getElementById('canvas');

@@ -23,7 +23,6 @@ class Tablero extends Sprite {
         for (let i = 0; i < this.casillas.length; i++) {
             let casilla = this.casillas[i];
             casilla.inicializarCasilla();
-            casilla.resetear();
         }
     }
     pintarCirculo(indiceArray) {
@@ -31,6 +30,7 @@ class Tablero extends Sprite {
         this.estaCasillaDesactivada = casilla.estaDesactivada();
         if (!this.estaCasillaDesactivada) {
             casilla.pintarCirculo();
+            this.estaCasillaDesactivada = true;
         }
     }
     pintarCruz(indiceArray) {
