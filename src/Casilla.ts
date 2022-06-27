@@ -55,6 +55,8 @@ class Casilla extends Sprite{
 
     public resetear(): void{
 
+        this.esCirculo = false;
+        this.esCruz = false;
         this.casillaSeleccionada = false;
     }
 
