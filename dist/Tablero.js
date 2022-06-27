@@ -18,12 +18,33 @@ class Tablero extends Sprite {
             }
         }
     }
-    inicializarJuego() {
+    inicializarTablero() {
         this.pintar(this.contexto);
         for (let i = 0; i < this.casillas.length; i++) {
             let casilla = this.casillas[i];
             casilla.inicializarCasilla();
+            casilla.resetear();
         }
+    }
+    pintarCirculo(indiceArray) {
+        let casilla = this.casillas[indiceArray];
+        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        if (!this.estaCasillaDesactivada) {
+            casilla.pintarCirculo();
+        }
+    }
+    pintarCruz(indiceArray) {
+        let casilla = this.casillas[indiceArray];
+        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        if (!this.estaCasillaDesactivada) {
+            casilla.pintarCruz();
+            this.estaCasillaDesactivada = true;
+        }
+    }
+    estaDesactivada(indiceArray) {
+        let casilla = this.casillas[indiceArray];
+        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        return this.estaCasillaDesactivada;
     }
     pintar(contexto) {
         contexto.lineWidth = 1;

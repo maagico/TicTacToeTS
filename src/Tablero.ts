@@ -1,13 +1,15 @@
 class Tablero extends Sprite{
-
+   
+     
      private ancho: number = 300;
      private alto: number = 150;
-
+     private estaCasillaDesactivada: boolean;
      private casillas: Array<Casilla> = new Array(9);
      
      constructor(){
 
           super();
+
           this.crearCasillas();
      }
  
@@ -29,7 +31,7 @@ class Tablero extends Sprite{
           } 
      }
  
-     public inicializarJuego() {
+     public inicializarTablero() {
           
           this.pintar(this.contexto);
 
@@ -37,9 +39,42 @@ class Tablero extends Sprite{
 
                let casilla = this.casillas[i];
                casilla.inicializarCasilla();
+               casilla.resetear();
           } 
 
      }
+
+     public pintarCirculo(indiceArray: number){
+     
+          let casilla: Casilla = this.casillas[indiceArray];
+          this.estaCasillaDesactivada = casilla.estaDesactivada();
+          
+          if(!this.estaCasillaDesactivada){
+
+               casilla.pintarCirculo();
+               
+          }
+      }
+  
+      public pintarCruz(indiceArray: number){
+          
+          let casilla: Casilla = this.casillas[indiceArray];
+          this.estaCasillaDesactivada = casilla.estaDesactivada();
+          
+          if(!this.estaCasillaDesactivada){
+               
+               casilla.pintarCruz();
+               this.estaCasillaDesactivada = true;
+          }
+      }
+
+      public estaDesactivada(indiceArray: number): boolean{
+          
+          let casilla: Casilla = this.casillas[indiceArray];
+          this.estaCasillaDesactivada = casilla.estaDesactivada();
+
+          return this.estaCasillaDesactivada;
+      }
 
      public pintar(contexto: CanvasRenderingContext2D) : void {
 

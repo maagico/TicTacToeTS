@@ -7,7 +7,7 @@ class Casilla extends Sprite{
     private ancho: number;
     private alto: number;
 
-    private casillaSeleccionada: boolean = false;
+    private casillaDesactivada: boolean = false;
 
     private esCirculo: boolean = false;
     private esCruz: boolean = false;
@@ -27,7 +27,7 @@ class Casilla extends Sprite{
 
     public inicializarCasilla(): void {
         
-        this.casillaSeleccionada = false;
+        this.casillaDesactivada = false;
         this.esCirculo = false;
         this.esCruz = false;
 
@@ -37,27 +37,27 @@ class Casilla extends Sprite{
     public pintarCirculo(): void{
 
         this.esCirculo = true;
-        this.casillaSeleccionada = true;
+        this.casillaDesactivada = true;
         this.pintar(this.contexto);       
     }
 
     public pintarCruz(): void{
         
         this.esCruz = true;
-        this.casillaSeleccionada = true;
+        this.casillaDesactivada = true;
         this.pintar(this.contexto);        
     }
 
-    public estaSeleccionada(): boolean{
-
-        return this.casillaSeleccionada;
+    public estaDesactivada(): boolean{
+     
+        return this.casillaDesactivada;
     }
 
     public resetear(): void{
 
         this.esCirculo = false;
         this.esCruz = false;
-        this.casillaSeleccionada = false;
+        this.casillaDesactivada = false;
         
         this.pintar(this.contexto);  
     }
@@ -69,14 +69,21 @@ class Casilla extends Sprite{
         contexto.rect(this.x, this.y, this.ancho, this.alto);
         contexto.stroke();
 
-        if(this.estaSeleccionada){
+        if(this.casillaDesactivada){
 
             if(this.esCirculo){
 
+                let circuloNegro : any  = document.getElementById("circulo-negro");
+                contexto.drawImage(circuloNegro,this.x, this.y, 100, 50);
+
+                this.casillaDesactivada = true;
 
             }else if(this.esCruz){
+                
+                let cruzNegra : any  = document.getElementById("cruz-negra");
+                contexto.drawImage(cruzNegra,this.x, this.y, 100, 50);
 
-
+                this.casillaDesactivada = true;
             }
         }
     }
