@@ -16,18 +16,15 @@ class Tablero extends Sprite{
           let x: number = 0;
           let y: number = 0;
 
-          let ancho: number = 100;
-          let alto: number = 50;
-
           for(let i = 0; i < 9; i++){
 
-               this.casillas[i] = new Casilla(i, x * ancho, y, ancho, alto);
+               this.casillas[i] = new Casilla(i, x * Constantes.ANCHO_CASILLA, y, Constantes.ANCHO_CASILLA, Constantes.ALTO_CASILLA);
               
                x++;  
 
                if(x % 3 == 0){
                     x = 0
-                    y += alto; 
+                    y += Constantes.ALTO_CASILLA; 
                }
           } 
      }
@@ -48,7 +45,7 @@ class Tablero extends Sprite{
 
           contexto.lineWidth = 1;
           contexto.strokeStyle = "#000000";
-          contexto.rect(0, 0, this.ancho, this.alto);
+          contexto.rect(0, 0, Constantes.ANCHO_TABLERO, Constantes.ALTO_TABLERO);
           contexto.stroke();
      }
 } 

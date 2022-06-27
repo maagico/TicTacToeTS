@@ -16,9 +16,14 @@ class Reglas extends Eventos{
 
     public mouseUp(event: MouseEvent): void {    
 
-        let x = event.offsetX;
-        let y = event.offsetY;
+        let x:number = event.offsetX;
+        let y:number = event.offsetY;
 
-        console.log(x + " " + y);
+        x = Math.floor (x / Constantes.ANCHO_CASILLA);
+        y = Math.floor (y / (Constantes.ALTO_CASILLA + 50));
+        
+        let indiceArray: number =  x + (y * 3);
+        
+        console.log("Indice "+indiceArray+", "+ x + ", " + y);
    }
 }
