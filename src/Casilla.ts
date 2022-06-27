@@ -55,6 +55,21 @@ class Casilla extends Sprite{
         return this.casillaDesactivada;
     }
 
+    public contieneCirculo(): boolean{
+        
+        return this.esCirculo;
+    }
+    
+    public contieneCruz(): boolean{
+        
+        return this.esCruz;
+    }
+
+    public getIndice(): number{
+        
+        return this.indice;
+    }
+
     public pintar(contexto: CanvasRenderingContext2D) : void {
          
         contexto.lineWidth = 1;

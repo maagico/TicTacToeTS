@@ -1,8 +1,9 @@
 class Reglas {
     constructor(tablero) {
         this.jugando = false;
+        this.turnoJugadorHumano = true;
         this.mouseUp = (event) => {
-            if (this.jugando) {
+            if (this.jugando && this.turnoJugadorHumano) {
                 let x = event.offsetX;
                 let y = event.offsetY;
                 x = Math.floor(x / Constantes.ANCHO_CASILLA);
@@ -15,19 +16,13 @@ class Reglas {
                         this.cambiarTurno();
                     }
                 }
-                else if (this.turno == 1 /* CRUZ */) {
-                    let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
-                    if (!estaSeleccionada) {
-                        this.tablero.pintarCruz(indiceArray);
-                        this.cambiarTurno();
-                    }
-                }
                 //console.log("Indice "+indiceArray+", "+ x + ", " + y);
             }
         };
         let canvas = document.getElementById('canvas');
         canvas.addEventListener("mouseup", this.mouseUp);
         this.tablero = tablero;
+        this.ia = new IA(tablero);
     }
     inicializarJuego() {
         this.jugando = false;
@@ -36,13 +31,24 @@ class Reglas {
     comenzarJuego() {
         this.jugando = true;
         this.turno = 0 /* CIRCULO */;
+        this.turnoJugadorHumano = true;
     }
     cambiarTurno() {
         if (this.turno == 0 /* CIRCULO */) {
             this.turno = 1 /* CRUZ */;
+            this.turnoJugadorHumano = true;
+            this.movimientoIA();
         }
         else if (this.turno == 1 /* CRUZ */) {
             this.turno = 0 /* CIRCULO */;
+            this.turnoJugadorHumano = false;
         }
+    }
+    movimientoIA() {
+        let indiceArray = this.ia.getJugada();
+        let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
+        this.tablero.pintarCruz(indiceArray);
+        this.cambiarTurno();
+        this.turnoJugadorHumano = true;
     }
 }

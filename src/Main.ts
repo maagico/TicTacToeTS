@@ -5,8 +5,11 @@ class Main{
     constructor(){
     
         let reglas = this.reglas;
+        reglas.inicializarJuego();
+        reglas.comenzarJuego();
 
-        const botonComenzar = document.getElementById('comenzar');
+        const botonComenzar = document.getElementById('resetear');
+
         botonComenzar.addEventListener("click", () => {
 
                 reglas.inicializarJuego();

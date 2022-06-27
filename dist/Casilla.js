@@ -30,6 +30,15 @@ class Casilla extends Sprite {
     estaDesactivada() {
         return this.casillaDesactivada;
     }
+    contieneCirculo() {
+        return this.esCirculo;
+    }
+    contieneCruz() {
+        return this.esCruz;
+    }
+    getIndice() {
+        return this.indice;
+    }
     pintar(contexto) {
         contexto.lineWidth = 1;
         contexto.strokeStyle = "gray";

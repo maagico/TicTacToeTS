@@ -1,8 +1,10 @@
 class Reglas{
-        
+   
+    private ia:IA;
     private tablero: Tablero;
     private turno: TurnoEnum;
     private jugando: boolean = false;
+    private turnoJugadorHumano: boolean = true;
 
     constructor(tablero: Tablero){        
         
@@ -10,6 +12,7 @@ class Reglas{
         canvas.addEventListener("mouseup", this.mouseUp);
 
         this.tablero = tablero;
+        this.ia = new IA(tablero);
     }
 
     public inicializarJuego(): void {
@@ -21,12 +24,13 @@ class Reglas{
     public comenzarJuego(): void{
         
         this.jugando = true;
-        this.turno = TurnoEnum.CIRCULO
+        this.turno = TurnoEnum.CIRCULO;
+        this.turnoJugadorHumano= true;
     }
 
     public mouseUp = (event: MouseEvent) => {
 
-        if(this.jugando){
+        if(this.jugando && this.turnoJugadorHumano){
 
             let x:number = event.offsetX;
             let y:number = event.offsetY;
@@ -44,20 +48,8 @@ class Reglas{
 
                     this.tablero.pintarCirculo(indiceArray);
                     this.cambiarTurno();
-
-                }
-
-            }else if(this.turno == TurnoEnum.CRUZ){
-
-                let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
-                
-                if(!estaSeleccionada){
-
-                    this.tablero.pintarCruz(indiceArray);
-                    this.cambiarTurno();
                 }
             }
-
             //console.log("Indice "+indiceArray+", "+ x + ", " + y);
         }
     }
@@ -67,11 +59,27 @@ class Reglas{
         if(this.turno == TurnoEnum.CIRCULO){
             
             this.turno = TurnoEnum.CRUZ;
+            this.turnoJugadorHumano = true;
         
+            this.movimientoIA();
+
         }else if(this.turno == TurnoEnum.CRUZ){
             
             this.turno = TurnoEnum.CIRCULO;
+            this.turnoJugadorHumano = false;
         }
+    }
 
+    private movimientoIA(): void{
+
+        let indiceArray = this.ia.getJugada();
+
+        let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
+        
+        this.tablero.pintarCruz(indiceArray);
+        this.cambiarTurno();
+
+        this.turnoJugadorHumano = true;
+        
     }
 }

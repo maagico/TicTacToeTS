@@ -46,11 +46,11 @@ class Tablero extends Sprite{
      public pintarCirculo(indiceArray: number){
      
           let casilla: Casilla = this.casillas[indiceArray];
-          this.estaCasillaDesactivada = casilla.estaDesactivada();
+          this.estaCasillaDesactivada = casilla?.estaDesactivada();
           
           if(!this.estaCasillaDesactivada){
 
-               casilla.pintarCirculo();
+               casilla?.pintarCirculo();
                this.estaCasillaDesactivada = true;
           }
       }
@@ -58,11 +58,11 @@ class Tablero extends Sprite{
       public pintarCruz(indiceArray: number){
           
           let casilla: Casilla = this.casillas[indiceArray];
-          this.estaCasillaDesactivada = casilla.estaDesactivada();
+          this.estaCasillaDesactivada = casilla?.estaDesactivada();
           
           if(!this.estaCasillaDesactivada){
                
-               casilla.pintarCruz();
+               casilla?.pintarCruz();
                this.estaCasillaDesactivada = true;
           }
       }
@@ -70,9 +70,14 @@ class Tablero extends Sprite{
       public estaDesactivada(indiceArray: number): boolean{
           
           let casilla: Casilla = this.casillas[indiceArray];
-          this.estaCasillaDesactivada = casilla.estaDesactivada();
+          this.estaCasillaDesactivada = casilla?.estaDesactivada();
 
           return this.estaCasillaDesactivada;
+      }
+
+      public getCasillas(): Casilla[]{
+
+          return this.casillas;
       }
 
      public pintar(contexto: CanvasRenderingContext2D) : void {

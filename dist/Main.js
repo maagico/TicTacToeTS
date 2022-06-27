@@ -2,7 +2,9 @@ class Main {
     constructor() {
         this.reglas = new Reglas(new Tablero());
         let reglas = this.reglas;
-        const botonComenzar = document.getElementById('comenzar');
+        reglas.inicializarJuego();
+        reglas.comenzarJuego();
+        const botonComenzar = document.getElementById('resetear');
         botonComenzar.addEventListener("click", () => {
             reglas.inicializarJuego();
             reglas.comenzarJuego();

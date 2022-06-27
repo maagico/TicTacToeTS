@@ -27,24 +27,27 @@ class Tablero extends Sprite {
     }
     pintarCirculo(indiceArray) {
         let casilla = this.casillas[indiceArray];
-        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        this.estaCasillaDesactivada = casilla === null || casilla === void 0 ? void 0 : casilla.estaDesactivada();
         if (!this.estaCasillaDesactivada) {
-            casilla.pintarCirculo();
+            casilla === null || casilla === void 0 ? void 0 : casilla.pintarCirculo();
             this.estaCasillaDesactivada = true;
         }
     }
     pintarCruz(indiceArray) {
         let casilla = this.casillas[indiceArray];
-        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        this.estaCasillaDesactivada = casilla === null || casilla === void 0 ? void 0 : casilla.estaDesactivada();
         if (!this.estaCasillaDesactivada) {
-            casilla.pintarCruz();
+            casilla === null || casilla === void 0 ? void 0 : casilla.pintarCruz();
             this.estaCasillaDesactivada = true;
         }
     }
     estaDesactivada(indiceArray) {
         let casilla = this.casillas[indiceArray];
-        this.estaCasillaDesactivada = casilla.estaDesactivada();
+        this.estaCasillaDesactivada = casilla === null || casilla === void 0 ? void 0 : casilla.estaDesactivada();
         return this.estaCasillaDesactivada;
+    }
+    getCasillas() {
+        return this.casillas;
     }
     pintar(contexto) {
         contexto.lineWidth = 1;
