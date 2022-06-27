@@ -1,6 +1,6 @@
-class Sprite {
+class Eventos {
     constructor() {
         let canvas = document.getElementById('canvas');
-        this.contexto = canvas.getContext("2d");
+        canvas.addEventListener("mouseup", this.mouseUp);
     }
 }

@@ -1,9 +1,11 @@
-class Reglas{
+class Reglas extends Eventos{
     
-    tablero : Tablero;
+    private tablero : Tablero;
 
     constructor(tablero: Tablero){        
-    
+        
+        super();
+        
         this.tablero = tablero;
     }
 
@@ -11,4 +13,12 @@ class Reglas{
     
         this.tablero.inicializarJuego();
     }
+
+    public mouseUp(event: MouseEvent): void {    
+
+        let x = event.offsetX;
+        let y = event.offsetY;
+
+        console.log(x + " " + y);
+   }
 }
