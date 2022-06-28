@@ -35,10 +35,11 @@ class IA {
                 return casillaSeleccionada;
             }
             let posiblesEsquinas = [0, 2, 6, 8];
-            casillaSeleccionada = this.getEsquinaLibre([0, 2, 6, 8]);
+            casillaSeleccionada = this.getCasillaLibre([0, 2, 6, 8]);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
+            casillaSeleccionada = this.getCasillaLibre([0, 1, 2, 3, 4, 5, 6, 7, 8]);
             return casillaSeleccionada;
         }
     }
@@ -103,11 +104,11 @@ class IA {
         }
         return bloquearCasilla;
     }
-    getEsquinaLibre(posiblesEsquinas) {
+    getCasillaLibre(posiblesEsquinas) {
         let casillas = this.tablero.getCasillas();
         let casillaSeleccioanda = -1;
         let hayLibres = false;
-        for (let i = 0; i < posiblesEsquinas.length && !hayLibres; i++) {
+        for (let i = 0; i < posiblesEsquinas.length; i++) {
             if (!casillas[posiblesEsquinas[i]].estaDesactivada()) {
                 hayLibres = true;
             }

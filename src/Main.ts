@@ -5,6 +5,7 @@ class Main{
     constructor(){
     
         let reglas = this.reglas;
+        
         reglas.inicializarJuego();
         reglas.comenzarJuego();
 
@@ -14,7 +15,7 @@ class Main{
 
                 reglas.inicializarJuego();
                 reglas.comenzarJuego();
-            }); 
+        }); 
     }
 }
 

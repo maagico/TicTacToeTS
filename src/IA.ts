@@ -71,13 +71,15 @@ class IA{//Mucho de artificial, poco de inteligente
 
             let posiblesEsquinas: number[] = [0, 2, 6, 8];
 
-            casillaSeleccionada = this.getEsquinaLibre([0, 2, 6, 8]);
+            casillaSeleccionada = this.getCasillaLibre([0, 2, 6, 8]);
             
             if(casillaSeleccionada != -1){
                 
                 return casillaSeleccionada;
             }
             
+            casillaSeleccionada = this.getCasillaLibre([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+
             return casillaSeleccionada ;
         }  
     }
@@ -182,7 +184,7 @@ class IA{//Mucho de artificial, poco de inteligente
         return bloquearCasilla;
     } 
 
-    private getEsquinaLibre(posiblesEsquinas: number[]): number {
+    private getCasillaLibre(posiblesEsquinas: number[]): number {
 
         let casillas: Casilla[] = this.tablero.getCasillas();
 
@@ -191,7 +193,7 @@ class IA{//Mucho de artificial, poco de inteligente
 
         for(let i = 0; i < posiblesEsquinas.length; i++){
             
-            if(casillas[posiblesEsquinas[i]].estaDesactivada()){
+            if(!casillas[posiblesEsquinas[i]].estaDesactivada()){
 
                 hayLibres = true;
             }
