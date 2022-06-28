@@ -50,7 +50,6 @@ class Reglas{
                     this.cambiarTurno();
                 }
             }
-            //console.log("Indice "+indiceArray+", "+ x + ", " + y);
         }
     }
 
@@ -73,8 +72,6 @@ class Reglas{
     private movimientoIA(): void{
 
         let indiceArray = this.ia.getJugada();
-
-        let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
         
         this.tablero.pintarCruz(indiceArray);
         this.cambiarTurno();

@@ -16,7 +16,6 @@ class Reglas {
                         this.cambiarTurno();
                     }
                 }
-                //console.log("Indice "+indiceArray+", "+ x + ", " + y);
             }
         };
         let canvas = document.getElementById('canvas');
@@ -46,7 +45,6 @@ class Reglas {
     }
     movimientoIA() {
         let indiceArray = this.ia.getJugada();
-        let estaSeleccionada = this.tablero.estaDesactivada(indiceArray);
         this.tablero.pintarCruz(indiceArray);
         this.cambiarTurno();
         this.turnoJugadorHumano = true;
