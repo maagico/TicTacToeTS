@@ -2,6 +2,7 @@ class Reglas {
     constructor(tablero) {
         this.jugando = false;
         this.turnoJugadorHumano = true;
+        this.hayJugadaGanadora = false;
         this.mouseUp = (event) => {
             if (this.jugando && this.turnoJugadorHumano) {
                 let x = event.offsetX;
@@ -32,18 +33,21 @@ class Reglas {
         this.jugando = true;
         this.turno = 0 /* CIRCULO */;
         this.turnoJugadorHumano = true;
+        this.hayJugadaGanadora = false;
     }
     cambiarTurno() {
+        this.comprobarJugadaGanadora();
         if (this.turno == 0 /* CIRCULO */) {
             this.turno = 1 /* CRUZ */;
             this.turnoJugadorHumano = true;
-            this.movimientoIA();
+            if (!this.hayJugadaGanadora) {
+                this.movimientoIA();
+            }
         }
         else if (this.turno == 1 /* CRUZ */) {
             this.turno = 0 /* CIRCULO */;
             this.turnoJugadorHumano = false;
         }
-        this.comprobarJugadaGanadora();
     }
     movimientoIA() {
         let indiceArray = this.ia.getJugada();
@@ -55,10 +59,12 @@ class Reglas {
         let hayJugadaGanadoraCirculo = this.tablero.comprobarJugadaGanadora(true);
         let hayJugadaGanadoraCruz = this.tablero.comprobarJugadaGanadora(false);
         if (hayJugadaGanadoraCirculo) {
+            this.hayJugadaGanadora = true;
             this.jugando = false;
             document.getElementById("mensaje").innerHTML = "Has ganado";
         }
         else if (hayJugadaGanadoraCruz) {
+            this.hayJugadaGanadora = true;
             this.jugando = false;
             document.getElementById("mensaje").innerHTML = "Has perdido";
         }

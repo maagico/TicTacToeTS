@@ -5,6 +5,7 @@ class Reglas{
     private turno: TurnoEnum;
     private jugando: boolean = false;
     private turnoJugadorHumano: boolean = true;
+    private hayJugadaGanadora: boolean = false;
 
     constructor(tablero: Tablero){        
         
@@ -27,6 +28,7 @@ class Reglas{
         this.jugando = true;
         this.turno = TurnoEnum.CIRCULO;
         this.turnoJugadorHumano= true;
+        this.hayJugadaGanadora = false;
     }
 
     public mouseUp = (event: MouseEvent) => {
@@ -56,12 +58,17 @@ class Reglas{
 
     private cambiarTurno(): void{
 
+        this.comprobarJugadaGanadora();
+
         if(this.turno == TurnoEnum.CIRCULO){
             
             this.turno = TurnoEnum.CRUZ;
             this.turnoJugadorHumano = true;
-        
-            this.movimientoIA();
+
+            if(!this.hayJugadaGanadora){
+                
+                this.movimientoIA();
+            }
 
         }else if(this.turno == TurnoEnum.CRUZ){
             
@@ -69,7 +76,7 @@ class Reglas{
             this.turnoJugadorHumano = false;
         }
 
-        this.comprobarJugadaGanadora();
+        
     }
 
     private movimientoIA(): void{
@@ -89,13 +96,15 @@ class Reglas{
 
         if(hayJugadaGanadoraCirculo){
             
+            this.hayJugadaGanadora = true;
             this.jugando = false;
-            document.getElementById("mensaje").innerHTML = "Has ganado"
-        
+            document.getElementById("mensaje").innerHTML = "Has ganado";
+
         }else if(hayJugadaGanadoraCruz){
-                
+
+            this.hayJugadaGanadora = true;    
             this.jugando = false;
-            document.getElementById("mensaje").innerHTML = "Has perdido"
+            document.getElementById("mensaje").innerHTML = "Has perdido";
         }
     }
 }
