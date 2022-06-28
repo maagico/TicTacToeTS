@@ -30,7 +30,7 @@ class Tablero extends Sprite{
           } 
      }
  
-     public inicializarTablero() {
+     public inicializarTablero(): void {
           
           this.pintar(this.contexto);
 
@@ -42,7 +42,7 @@ class Tablero extends Sprite{
 
      }
 
-     public pintarCirculo(indiceArray: number){
+     public pintarCirculo(indiceArray: number): void {
      
           let casilla: Casilla = this.casillas[indiceArray];
           this.estaCasillaDesactivada = casilla?.estaDesactivada();
@@ -54,7 +54,7 @@ class Tablero extends Sprite{
           }
       }
   
-      public pintarCruz(indiceArray: number){
+      public pintarCruz(indiceArray: number): void {
           
           let casilla: Casilla = this.casillas[indiceArray];
           this.estaCasillaDesactivada = casilla?.estaDesactivada();
