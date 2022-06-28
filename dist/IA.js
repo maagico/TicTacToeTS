@@ -37,7 +37,7 @@ class IA {
             let posiblesEsquinas = [0, 2, 6, 8];
             casillaSeleccionada = this.getEsquinaLibre([0, 2, 6, 8]);
             if (casillaSeleccionada != -1) {
-                return posiblesEsquinas[casillaSeleccionada];
+                return casillaSeleccionada;
             }
             return casillaSeleccionada;
         }
@@ -106,28 +106,26 @@ class IA {
     getEsquinaLibre(posiblesEsquinas) {
         let casillas = this.tablero.getCasillas();
         let casillaSeleccioanda = -1;
-        let todasOcupadas = true;
-        for (let i = 0; i < posiblesEsquinas.length; i++) {
+        let hayLibres = false;
+        for (let i = 0; i < posiblesEsquinas.length && !hayLibres; i++) {
             if (!casillas[posiblesEsquinas[i]].estaDesactivada()) {
-                todasOcupadas = false;
+                hayLibres = true;
             }
-            if (todasOcupadas) {
-                return casillaSeleccioanda;
-            }
-            else {
-                let buscarEsquinaLibre = true;
-                while (buscarEsquinaLibre) {
-                    let esquina = this.getNumeroAleatorio(0, 3);
-                    if (!casillas[esquina].estaDesactivada()) {
-                        casillaSeleccioanda = esquina;
-                        buscarEsquinaLibre = false;
-                    }
-                }
+        }
+        if (!hayLibres) {
+            return casillaSeleccioanda;
+        }
+        let buscarEsquinaLibre = true;
+        while (buscarEsquinaLibre) {
+            let esquina = this.getNumeroAleatorio(0, 3);
+            if (!casillas[posiblesEsquinas[esquina]].estaDesactivada()) {
+                casillaSeleccioanda = casillas[posiblesEsquinas[esquina]].getIndice();
+                buscarEsquinaLibre = false;
             }
         }
         return casillaSeleccioanda;
     }
-    getNumeroAleatorio(min, max) {
-        return Math.round(Math.random() * (max - min) + min);
+    getNumeroAleatorio(minimo, maximo) {
+        return Math.round(Math.random() * (maximo - minimo) + minimo);
     }
 }

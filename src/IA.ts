@@ -75,7 +75,7 @@ class IA{//Mucho de artificial, poco de inteligente
             
             if(casillaSeleccionada != -1){
                 
-                return posiblesEsquinas[casillaSeleccionada];
+                return casillaSeleccionada;
             }
             
             return casillaSeleccionada ;
@@ -187,42 +187,39 @@ class IA{//Mucho de artificial, poco de inteligente
         let casillas: Casilla[] = this.tablero.getCasillas();
 
         let casillaSeleccioanda: number = -1;
-        let todasOcupadas: boolean = true;
+        let hayLibres: boolean = false;
 
         for(let i = 0; i < posiblesEsquinas.length; i++){
             
-            if(!casillas[posiblesEsquinas[i]].estaDesactivada()){
+            if(casillas[posiblesEsquinas[i]].estaDesactivada()){
 
-                todasOcupadas = false;
+                hayLibres = true;
             }
+        }
 
-            if(todasOcupadas){
+        if(!hayLibres){
 
-                return casillaSeleccioanda;
-            
-            }else{
+            return casillaSeleccioanda;
+        }
 
-                let buscarEsquinaLibre: boolean = true;
+        let buscarEsquinaLibre: boolean = true;
                 
-                while(buscarEsquinaLibre){
+        while(buscarEsquinaLibre){
 
-                    let esquina = this.getNumeroAleatorio(0, 3);
-                    
-                    if(!casillas[esquina].estaDesactivada()){
+            let esquina = this.getNumeroAleatorio(0, 3);
+            
+            if(!casillas[posiblesEsquinas[esquina]].estaDesactivada()){
 
-                        casillaSeleccioanda = esquina;
-                        buscarEsquinaLibre = false;
-
-                    }
-                }
+                casillaSeleccioanda = casillas[posiblesEsquinas[esquina]].getIndice();
+                buscarEsquinaLibre = false;
             }
         }
 
         return casillaSeleccioanda;
      }
 
-     private getNumeroAleatorio(min: number, max: number) {
+     private getNumeroAleatorio(minimo: number, maximo: number) {
 
-        return Math.round(Math.random() * (max - min) + min);
+        return Math.round(Math.random() * (maximo - minimo) + minimo);
      }
 }
