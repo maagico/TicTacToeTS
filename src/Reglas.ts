@@ -19,6 +19,7 @@ class Reglas{
 
         this.jugando = false;
         this.tablero.inicializarTablero();
+        document.getElementById("mensaje").innerHTML = "";
     }
 
     public comenzarJuego(): void{
@@ -67,6 +68,8 @@ class Reglas{
             this.turno = TurnoEnum.CIRCULO;
             this.turnoJugadorHumano = false;
         }
+
+        this.comprobarJugadaGanadora();
     }
 
     private movimientoIA(): void{
@@ -78,5 +81,21 @@ class Reglas{
 
         this.turnoJugadorHumano = true;
         
+    }
+    private comprobarJugadaGanadora(): void{
+
+        let hayJugadaGanadoraCirculo = this.tablero.comprobarJugadaGanadora(true);
+        let hayJugadaGanadoraCruz = this.tablero.comprobarJugadaGanadora(false);
+
+        if(hayJugadaGanadoraCirculo){
+            
+            this.jugando = false;
+            document.getElementById("mensaje").innerHTML = "Has ganado"
+        
+        }else if(hayJugadaGanadoraCruz){
+                
+            this.jugando = false;
+            document.getElementById("mensaje").innerHTML = "Has perdido"
+        }
     }
 }

@@ -49,6 +49,41 @@ class Tablero extends Sprite {
     getCasillas() {
         return this.casillas;
     }
+    comprobarJugadaGanadora(circulo) {
+        let numeroCasillasEncontradas = new Array();
+        numeroCasillasEncontradas[0] = this.buscarJugadaGanadora([0, 1, 2], circulo);
+        numeroCasillasEncontradas[1] = this.buscarJugadaGanadora([3, 4, 5], circulo);
+        numeroCasillasEncontradas[2] = this.buscarJugadaGanadora([6, 7, 8], circulo);
+        numeroCasillasEncontradas[3] = this.buscarJugadaGanadora([0, 3, 6], circulo);
+        numeroCasillasEncontradas[4] = this.buscarJugadaGanadora([1, 4, 7], circulo);
+        numeroCasillasEncontradas[5] = this.buscarJugadaGanadora([2, 5, 8], circulo);
+        numeroCasillasEncontradas[6] = this.buscarJugadaGanadora([0, 4, 8], circulo);
+        numeroCasillasEncontradas[7] = this.buscarJugadaGanadora([2, 4, 6], circulo);
+        for (let i = 0; i < numeroCasillasEncontradas.length; i++) {
+            let numero = numeroCasillasEncontradas[i];
+            if (numero == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+    buscarJugadaGanadora(casillasABuscar, circulo) {
+        let numeroCasillas = 0;
+        for (let i = 0; i < casillasABuscar.length; i++) {
+            let casilla = this.casillas[casillasABuscar[i]];
+            if (circulo) {
+                if (casilla.contieneCirculo()) {
+                    numeroCasillas++;
+                }
+            }
+            else {
+                if (casilla.contieneCruz()) {
+                    numeroCasillas++;
+                }
+            }
+        }
+        return numeroCasillas;
+    }
     pintar(contexto) {
         contexto.lineWidth = 1;
         contexto.strokeStyle = "#000000";

@@ -86,61 +86,68 @@ class IA{//Mucho de artificial, poco de inteligente
 
     private jugadaHorizontal(jugadaGanadora: boolean) : number{
         
-        let casillaSeleccionada = this.jugada([0, 1, 2], jugadaGanadora);
+        let casillasSeleccionadas: number[] = new Array();
+        let numeroCasillasSelecionadas = -1;
 
-        if(casillaSeleccionada == -1){
-
-            casillaSeleccionada = this.jugada([3, 4, 5], jugadaGanadora);
-
-            if(casillaSeleccionada == -1){
-
-                casillaSeleccionada = this.jugada([6, 7, 8], jugadaGanadora);
-            }    
-        }
-
-        return casillaSeleccionada;
-
+        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugadaGanadora);
+        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugadaGanadora);
+        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugadaGanadora);
+              
+        return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
 
     private jugadaVertical(jugadaGanadora: boolean) : number{
         
-        let casillaSeleccionada = this.jugada([0, 3, 6], jugadaGanadora);
+        let casillasSeleccionadas: number[] = new Array();
+        let numeroCasillasSelecionadas = -1;
 
-        if(casillaSeleccionada == -1){
-
-            casillaSeleccionada = this.jugada([1, 4, 7], jugadaGanadora);
-
-            if(casillaSeleccionada == -1){
-
-                casillaSeleccionada = this.jugada([2, 5, 8], jugadaGanadora);
-            }    
-        }
-
-        return casillaSeleccionada;
+        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugadaGanadora);
+        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugadaGanadora);
+        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugadaGanadora);
+              
+        return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
 
     private jugadasEnDiagonal(jugadaGanadora: boolean) : number{
         
-        let casillaSeleccionada = this.jugada([0, 4, 8], jugadaGanadora);
+        let casillasSeleccionadas: number[] = new Array();
+        let numeroCasillasSelecionadas = -1;
 
-        if(casillaSeleccionada == -1){
+        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugadaGanadora);
+        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugadaGanadora);
 
-            casillaSeleccionada = this.jugada([2, 4, 6], jugadaGanadora); 
-        }
-
-        return casillaSeleccionada;
+        return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
 
-    private jugada(casillasABloquear: number[], jugadaGanadora: boolean) : number{
+    private comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas: number[]) : number{
+
+        let casillaSeleccionada: number[] = new Array();
+        let numeroCasillasSelecionadas = -1;
+
+        for (let i = 0; i < casillasSeleccionadas.length; i++) {
+            
+            numeroCasillasSelecionadas = casillasSeleccionadas[i];
+
+            if(numeroCasillasSelecionadas != -1){
+
+                return numeroCasillasSelecionadas;
+            }            
+    
+        }
+
+        return numeroCasillasSelecionadas;
+    }
+
+    private jugada(casillasAbuscar: number[], jugadaGanadora: boolean) : number{
 
         let casillas: Casilla[] = this.tablero.getCasillas();
 
         let dosSeguidos: number = 0;
         let bloquearCasilla: number = -1;
 
-        for(let i:number = 0; i < casillasABloquear.length; i++){
+        for(let i:number = 0; i < casillasAbuscar.length; i++){
             
-            let casilla: Casilla = casillas[casillasABloquear[i]]; 
+            let casilla: Casilla = casillas[casillasAbuscar[i]]; 
             
             if(jugadaGanadora){
 
@@ -160,9 +167,9 @@ class IA{//Mucho de artificial, poco de inteligente
  
         if(dosSeguidos == 2){ 
 
-            for(let i: number = 0; i < casillasABloquear.length; i++){
+            for(let i: number = 0; i < casillasAbuscar.length; i++){
                 
-                let casilla: Casilla = casillas[casillasABloquear[i]];  
+                let casilla: Casilla = casillas[casillasAbuscar[i]];  
 
                 if(jugadaGanadora){
                     
@@ -184,16 +191,16 @@ class IA{//Mucho de artificial, poco de inteligente
         return bloquearCasilla;
     } 
 
-    private getCasillaLibre(posiblesEsquinas: number[]): number {
+    private getCasillaLibre(posiblesCasillasLibres: number[]): number {
 
         let casillas: Casilla[] = this.tablero.getCasillas();
 
         let casillaSeleccioanda: number = -1;
         let hayLibres: boolean = false;
 
-        for(let i = 0; i < posiblesEsquinas.length; i++){
+        for(let i = 0; i < posiblesCasillasLibres.length; i++){
             
-            if(!casillas[posiblesEsquinas[i]].estaDesactivada()){
+            if(!casillas[posiblesCasillasLibres[i]].estaDesactivada()){
 
                 hayLibres = true;
             }
@@ -210,9 +217,9 @@ class IA{//Mucho de artificial, poco de inteligente
 
             let esquina = this.getNumeroAleatorio(0, 3);
             
-            if(!casillas[posiblesEsquinas[esquina]].estaDesactivada()){
+            if(!casillas[posiblesCasillasLibres[esquina]].estaDesactivada()){
 
-                casillaSeleccioanda = casillas[posiblesEsquinas[esquina]].getIndice();
+                casillaSeleccioanda = casillas[posiblesCasillasLibres[esquina]].getIndice();
                 buscarEsquinaLibre = false;
             }
         }

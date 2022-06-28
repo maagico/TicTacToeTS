@@ -1,6 +1,5 @@
 class Tablero extends Sprite{
-   
-     
+        
      private ancho: number = 300;
      private alto: number = 150;
      private estaCasillaDesactivada: boolean;
@@ -78,6 +77,59 @@ class Tablero extends Sprite{
       public getCasillas(): Casilla[]{
 
           return this.casillas;
+      }
+
+      public comprobarJugadaGanadora(circulo: boolean): boolean {
+
+          let numeroCasillasEncontradas: number[] = new Array(); 
+
+          numeroCasillasEncontradas[0] = this.buscarJugadaGanadora([0, 1, 2], circulo);
+          numeroCasillasEncontradas[1] = this.buscarJugadaGanadora([3, 4, 5], circulo);
+          numeroCasillasEncontradas[2] = this.buscarJugadaGanadora([6, 7, 8], circulo);
+          numeroCasillasEncontradas[3] = this.buscarJugadaGanadora([0, 3, 6], circulo);
+          numeroCasillasEncontradas[4] = this.buscarJugadaGanadora([1, 4, 7], circulo);
+          numeroCasillasEncontradas[5] = this.buscarJugadaGanadora([2, 5, 8], circulo);
+          numeroCasillasEncontradas[6] = this.buscarJugadaGanadora([0, 4, 8], circulo);
+          numeroCasillasEncontradas[7] = this.buscarJugadaGanadora([2, 4, 6], circulo);
+          
+          for(let i = 0;i < numeroCasillasEncontradas.length; i++){
+
+               let numero = numeroCasillasEncontradas[i];
+               if(numero == 3){
+
+                    return true;
+               }
+          }
+
+          return false;
+      }
+
+
+      private buscarJugadaGanadora(casillasABuscar: number[], circulo: boolean): number{
+
+          let numeroCasillas: number = 0;
+
+          for(let i = 0; i < casillasABuscar.length; i++){
+               
+               let casilla: Casilla = this.casillas[casillasABuscar[i]];
+
+               if(circulo){
+                    
+                    if(casilla.contieneCirculo()){
+                         
+                         numeroCasillas++;
+                    } 
+
+               }else{
+
+                    if(casilla.contieneCruz()){
+                         
+                         numeroCasillas++;
+                    } 
+               }
+          }
+
+          return numeroCasillas;
       }
 
      public pintar(contexto: CanvasRenderingContext2D) : void {

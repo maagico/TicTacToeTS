@@ -26,6 +26,7 @@ class Reglas {
     inicializarJuego() {
         this.jugando = false;
         this.tablero.inicializarTablero();
+        document.getElementById("mensaje").innerHTML = "";
     }
     comenzarJuego() {
         this.jugando = true;
@@ -42,11 +43,24 @@ class Reglas {
             this.turno = 0 /* CIRCULO */;
             this.turnoJugadorHumano = false;
         }
+        this.comprobarJugadaGanadora();
     }
     movimientoIA() {
         let indiceArray = this.ia.getJugada();
         this.tablero.pintarCruz(indiceArray);
         this.cambiarTurno();
         this.turnoJugadorHumano = true;
+    }
+    comprobarJugadaGanadora() {
+        let hayJugadaGanadoraCirculo = this.tablero.comprobarJugadaGanadora(true);
+        let hayJugadaGanadoraCruz = this.tablero.comprobarJugadaGanadora(false);
+        if (hayJugadaGanadoraCirculo) {
+            this.jugando = false;
+            document.getElementById("mensaje").innerHTML = "Has ganado";
+        }
+        else if (hayJugadaGanadoraCruz) {
+            this.jugando = false;
+            document.getElementById("mensaje").innerHTML = "Has perdido";
+        }
     }
 }
