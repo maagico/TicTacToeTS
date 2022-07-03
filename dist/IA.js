@@ -8,7 +8,7 @@ class IA {
         if (!casillas[4].estaDesactivada()) {
             casillaSeleccionada = 4;
             return casillaSeleccionada;
-        }
+        } 
         else {
             casillaSeleccionada = this.jugadaHorizontal(true);
             if (casillaSeleccionada != -1) {
@@ -43,27 +43,27 @@ class IA {
             return casillaSeleccionada;
         }
     }
-    jugadaHorizontal(jugadaGanadora) {
+    jugadaHorizontal(jugada) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugadaGanadora);
-        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugadaGanadora);
-        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugadaGanadora);
+        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugada);
+        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugada);
+        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugada);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
-    jugadaVertical(jugadaGanadora) {
+    jugadaVertical(jugada) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugadaGanadora);
-        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugadaGanadora);
-        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugadaGanadora);
+        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugada);
+        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugada);
+        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugada);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
-    jugadasEnDiagonal(jugadaGanadora) {
+    jugadasEnDiagonal(jugada) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugadaGanadora);
-        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugadaGanadora);
+        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugada);
+        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugada);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
     comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas) {
@@ -77,13 +77,13 @@ class IA {
         }
         return numeroCasillasSelecionadas;
     }
-    jugada(casillasAbuscar, jugadaGanadora) {
+    jugada(casillasAbuscar, jugada) {
         let casillas = this.tablero.getCasillas();
         let dosSeguidos = 0;
-        let bloquearCasilla = -1;
+        let casillaElegida = -1;
         for (let i = 0; i < casillasAbuscar.length; i++) {
             let casilla = casillas[casillasAbuscar[i]];
-            if (jugadaGanadora) {
+            if (jugada) {
                 if (casilla.contieneCruz() && casilla.estaDesactivada()) {
                     dosSeguidos++;
                 }
@@ -97,19 +97,19 @@ class IA {
         if (dosSeguidos == 2) {
             for (let i = 0; i < casillasAbuscar.length; i++) {
                 let casilla = casillas[casillasAbuscar[i]];
-                if (jugadaGanadora) {
+                if (jugada) {
                     if (!casilla.contieneCruz() && !casilla.estaDesactivada()) {
-                        bloquearCasilla = casilla.getIndice();
+                        casillaElegida = casilla.getIndice();
                     }
                 }
                 else {
                     if (!casilla.contieneCirculo() && !casilla.estaDesactivada()) {
-                        bloquearCasilla = casilla.getIndice();
+                        casillaElegida = casilla.getIndice();
                     }
                 }
             }
         }
-        return bloquearCasilla;
+        return casillaElegida;
     }
     getCasillaLibre(posiblesCasillasLibres) {
         let casillas = this.tablero.getCasillas();
