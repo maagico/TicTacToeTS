@@ -164,7 +164,7 @@ class IA{//Mucho de artificial, poco de inteligente
                 }
             }
         } 
-  
+   
         if(dosSeguidos == 2){ 
 
             for(let i: number = 0; i < casillasAbuscar.length; i++){

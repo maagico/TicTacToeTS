@@ -8,7 +8,7 @@ class IA {
         if (!casillas[4].estaDesactivada()) {
             casillaSeleccionada = 4;
             return casillaSeleccionada;
-        } 
+        }
         else {
             casillaSeleccionada = this.jugadaHorizontal(true);
             if (casillaSeleccionada != -1) {
