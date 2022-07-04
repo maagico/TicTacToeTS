@@ -10,27 +10,27 @@ class IA {
             return casillaSeleccionada;
         }
         else {
-            casillaSeleccionada = this.jugadaHorizontal(true);
+            casillaSeleccionada = this.jugadaHorizontal(0 /* JUGADA_PARA_GANAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
-            casillaSeleccionada = this.jugadaVertical(true);
+            casillaSeleccionada = this.jugadaVertical(0 /* JUGADA_PARA_GANAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
-            casillaSeleccionada = this.jugadasEnDiagonal(true);
+            casillaSeleccionada = this.jugadasEnDiagonal(0 /* JUGADA_PARA_GANAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
-            casillaSeleccionada = this.jugadaHorizontal(false);
+            casillaSeleccionada = this.jugadaHorizontal(1 /* JUGADA_PARA_BLOQUEAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
-            casillaSeleccionada = this.jugadaVertical(false);
+            casillaSeleccionada = this.jugadaVertical(1 /* JUGADA_PARA_BLOQUEAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
-            casillaSeleccionada = this.jugadasEnDiagonal(false);
+            casillaSeleccionada = this.jugadasEnDiagonal(1 /* JUGADA_PARA_BLOQUEAR */);
             if (casillaSeleccionada != -1) {
                 return casillaSeleccionada;
             }
@@ -43,27 +43,27 @@ class IA {
             return casillaSeleccionada;
         }
     }
-    jugadaHorizontal(jugada) {
+    jugadaHorizontal(jugadaEnum) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugada);
-        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugada);
-        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugadaEnum);
+        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugadaEnum);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
-    jugadaVertical(jugada) {
+    jugadaVertical(jugadaEnum) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugada);
-        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugada);
-        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugadaEnum);
+        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugadaEnum);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
-    jugadasEnDiagonal(jugada) {
+    jugadasEnDiagonal(jugadaEnum) {
         let casillasSeleccionadas = new Array();
         let numeroCasillasSelecionadas = -1;
-        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugada);
-        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugadaEnum);
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
     comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas) {
@@ -77,13 +77,13 @@ class IA {
         }
         return numeroCasillasSelecionadas;
     }
-    jugada(casillasAbuscar, jugada) {
+    jugada(casillasAbuscar, jugadaEnum) {
         let casillas = this.tablero.getCasillas();
         let dosSeguidos = 0;
         let casillaElegida = -1;
         for (let i = 0; i < casillasAbuscar.length; i++) {
             let casilla = casillas[casillasAbuscar[i]];
-            if (jugada) {
+            if (jugadaEnum) {
                 if (casilla.contieneCruz() && casilla.estaDesactivada()) {
                     dosSeguidos++;
                 }
@@ -97,7 +97,7 @@ class IA {
         if (dosSeguidos == 2) {
             for (let i = 0; i < casillasAbuscar.length; i++) {
                 let casilla = casillas[casillasAbuscar[i]];
-                if (jugada) {
+                if (jugadaEnum) {
                     if (!casilla.contieneCruz() && !casilla.estaDesactivada()) {
                         casillaElegida = casilla.getIndice();
                     }

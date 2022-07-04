@@ -21,7 +21,7 @@ class IA{//Mucho de artificial, poco de inteligente
 
         }else{
                    
-            casillaSeleccionada = this.jugadaHorizontal(true);
+            casillaSeleccionada = this.jugadaHorizontal(JugadaEnum.JUGADA_PARA_GANAR);
 
             if(casillaSeleccionada != -1){
                 
@@ -29,15 +29,7 @@ class IA{//Mucho de artificial, poco de inteligente
 
             }
 
-            casillaSeleccionada = this.jugadaVertical(true);
-                
-            if(casillaSeleccionada != -1){
-            
-                return casillaSeleccionada;
-
-            }
-
-            casillaSeleccionada = this.jugadasEnDiagonal(true);
+            casillaSeleccionada = this.jugadaVertical(JugadaEnum.JUGADA_PARA_GANAR);
                 
             if(casillaSeleccionada != -1){
             
@@ -45,15 +37,7 @@ class IA{//Mucho de artificial, poco de inteligente
 
             }
 
-            casillaSeleccionada = this.jugadaHorizontal(false);
-
-            if(casillaSeleccionada != -1){
-                
-                return casillaSeleccionada;
-
-            }
-
-            casillaSeleccionada = this.jugadaVertical(false);
+            casillaSeleccionada = this.jugadasEnDiagonal(JugadaEnum.JUGADA_PARA_GANAR);
                 
             if(casillaSeleccionada != -1){
             
@@ -61,7 +45,23 @@ class IA{//Mucho de artificial, poco de inteligente
 
             }
 
-            casillaSeleccionada = this.jugadasEnDiagonal(false);
+            casillaSeleccionada = this.jugadaHorizontal(JugadaEnum.JUGADA_PARA_BLOQUEAR);
+
+            if(casillaSeleccionada != -1){
+                
+                return casillaSeleccionada;
+
+            }
+
+            casillaSeleccionada = this.jugadaVertical(JugadaEnum.JUGADA_PARA_BLOQUEAR);
+                
+            if(casillaSeleccionada != -1){
+            
+                return casillaSeleccionada;
+
+            }
+
+            casillaSeleccionada = this.jugadasEnDiagonal(JugadaEnum.JUGADA_PARA_BLOQUEAR);
                 
             if(casillaSeleccionada != -1){
             
@@ -84,37 +84,37 @@ class IA{//Mucho de artificial, poco de inteligente
         }  
     }
 
-    private jugadaHorizontal(jugada: boolean) : number{
+    private jugadaHorizontal(jugadaEnum: JugadaEnum) : number{
         
         let casillasSeleccionadas: number[] = new Array();
         let numeroCasillasSelecionadas = -1;
 
-        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugada);
-        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugada);
-        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 1, 2], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([3, 4, 5], jugadaEnum);
+        casillasSeleccionadas[2] = this.jugada([6, 7, 8], jugadaEnum);
               
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
 
-    private jugadaVertical(jugada: boolean) : number{
+    private jugadaVertical(jugadaEnum: JugadaEnum) : number{
         
         let casillasSeleccionadas: number[] = new Array();
         let numeroCasillasSelecionadas = -1;
 
-        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugada);
-        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugada);
-        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 3, 6], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([1, 4, 7], jugadaEnum);
+        casillasSeleccionadas[2] = this.jugada([2, 5, 8], jugadaEnum);
               
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
 
-    private jugadasEnDiagonal(jugada: boolean) : number{
+    private jugadasEnDiagonal(jugadaEnum: JugadaEnum) : number{
         
         let casillasSeleccionadas: number[] = new Array();
         let numeroCasillasSelecionadas = -1;
 
-        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugada);
-        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugada);
+        casillasSeleccionadas[0] = this.jugada([0, 4, 8], jugadaEnum);
+        casillasSeleccionadas[1] = this.jugada([2, 4, 6], jugadaEnum);
 
         return this.comprobarNumeroCasillasSeleccionadas(casillasSeleccionadas);
     }
@@ -138,7 +138,7 @@ class IA{//Mucho de artificial, poco de inteligente
         return numeroCasillasSelecionadas;
     }
 
-    private jugada(casillasAbuscar: number[], jugada: boolean) : number{
+    private jugada(casillasAbuscar: number[], jugadaEnum: JugadaEnum) : number{
 
         let casillas: Casilla[] = this.tablero.getCasillas();
  
@@ -149,7 +149,7 @@ class IA{//Mucho de artificial, poco de inteligente
             
             let casilla: Casilla = casillas[casillasAbuscar[i]]; 
             
-            if(jugada){
+            if(jugadaEnum){
 
                 if(casilla.contieneCruz() && casilla.estaDesactivada()){
                 
@@ -160,10 +160,10 @@ class IA{//Mucho de artificial, poco de inteligente
 
                 if(casilla.contieneCirculo() && casilla.estaDesactivada()){
                 
-                    dosSeguidos++;
+                    dosSeguidos++;  
                 }
-            }
-        } 
+            } 
+        }  
    
         if(dosSeguidos == 2){ 
 
@@ -171,12 +171,12 @@ class IA{//Mucho de artificial, poco de inteligente
                 
                 let casilla: Casilla = casillas[casillasAbuscar[i]];  
 
-                if(jugada){
+                if(jugadaEnum){
                     
                     if(!casilla.contieneCruz() && !casilla.estaDesactivada()){
 
                         casillaElegida = casilla.getIndice();
-                    }
+                    }   
 
                 }else{ 
                     
