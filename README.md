@@ -1,5 +1,5 @@
 ﻿# TicTacToeTS
-Otro Tres en raya hecho en TypeScript
+Otro Tres en raya hecho en TypeScript.
 
 Un jugador contra la CPU.
 
